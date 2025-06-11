@@ -27,7 +27,34 @@
         $id_usuario = $_SESSION['user_id'] ?? 0;
         $yaInscrito = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM inscripciones WHERE id_reto=$idReto AND id_usuario=$id_usuario")) > 0;
 
+        // Botón para participar si hay cupo
+        if ($yaInscrito) {
+            $HTML_BOTON .= "<form method='POST' action='modulos/retos/apuntarse_retos.php' class='m-0'>";
+            $HTML_BOTON .= "<input type='hidden' name='id_reto' value='$idReto'>";
+            $HTML_BOTON .= '<button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200 text-sm font-medium flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                </svg> Cancelar </button>';
+            $HTML_BOTON .= "</form>";
+        } else if ($inscritos < $reto['max_participantes']) {
+            $HTML_BOTON .= "<form method='POST' action='modulos/retos/apuntarse_retos.php' class='m-0'>";
+            $HTML_BOTON .= "<input type='hidden' name='id_reto' value='$idReto'>";
+            $HTML_BOTON .= '<button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                </svg> Apuntarme </button>';
+            $HTML_BOTON .= "</form>";
+        } else {
+            $HTML_BOTON = '<div class="flex justify-end">
+                            <strong class="-me-[2px] -mb-[2px] inline-flex items-center gap-1 rounded-ss-xl rounded-ee-xl bg-green-600 px-3 py-1.5 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                                </svg>
 
+                                <span class="text-[10px] font-medium sm:text-xs">Solved!</span>
+                            </strong>
+                        </div>';
+        }
 
         $estrellasHTML .= '<div class="flex items-center mb-4">';
         $estrellasHTML .= '<div class="flex mr-2">';
@@ -62,7 +89,7 @@
                 <button id="likeBtn" class="text-gray-500 hover:text-red-500 transition">
                 ❤️ <span id="likeCount"><?=$valoracion_cantidad?></span>
                 </button>
-                <button id="participateBtn" class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition"> Participar </button>
+                <?=$HTML_BOTON?>
             </div>
         </div>
 
