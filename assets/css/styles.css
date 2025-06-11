@@ -1,0 +1,10 @@
+.loader {
+    border-top-color: #4f46e5; /* Indigo-600 */
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
