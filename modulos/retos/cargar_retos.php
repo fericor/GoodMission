@@ -144,7 +144,7 @@
 
                         <!-- Botones de acción -->
                         <div class="flex justify-between">
-                            <button class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors duration-200 text-sm font-medium"> Más información </button>
+                            <a href="detalles-reto.php" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors duration-200 text-sm font-medium"> Información </a>
                             '.$HTML_BOTON.'
                         </div>
                     </div>
