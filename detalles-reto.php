@@ -12,6 +12,27 @@
     $result = $stmt->get_result();
 
     if ($reto = $result->fetch_assoc()) {
+        $HTML_BOTON          = '';
+        $estrellasHTML       = '';
+        $idReto              = $reto['id'];
+        $valoracion_total    = $reto['valoracion_total'];
+        $valoracion_cantidad = $reto['valoracion_cantidad'];
+        $media               = $valoracion_cantidad > 0 ? round($valoracion_total / $valoracion_cantidad, 1) : 0;
+
+
+        $estrellasHTML .= '<div class="flex items-center mb-4">';
+        $estrellasHTML .= '<div class="flex mr-2">';
+
+        $estrellasHTML .= '<!-- Estrellas llenas -->';
+        for ($i = 1; $i <= 5; $i++) {
+            $color = $i <= round($media) ? 'text-yellow-400' : 'text-gray-300';
+
+            $estrellasHTML .= '<svg data-valor="' . $i . '" data-reto="' . $idReto . '" onclick="app.handleStarClick(this)" class="w-4 h-4 ' . $color . '" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+        }
+        
+        $estrellasHTML .= '</div>';
+        $estrellasHTML .= '<span class="text-sm text-gray-600">' . number_format($media, 1) . ' ('.$valoracion_total.' valoraciones)</span>';
+        $estrellasHTML .= '</div>';
 
 ?>
 
@@ -53,13 +74,7 @@
                 <!-- Valoración -->
                 <div class="mt-4">
                     <strong>Valoración:</strong>
-                    <div id="rating" class="flex space-x-1 mt-1">
-                        <span class="star" data-value="1">★</span>
-                        <span class="star" data-value="2">★</span>
-                        <span class="star" data-value="3">★</span>
-                        <span class="star" data-value="4">★</span>
-                        <span class="star" data-value="5">★</span>
-                    </div>
+                    <?= $estrellasHTML ?>
                 </div>
             </div>
         </div>

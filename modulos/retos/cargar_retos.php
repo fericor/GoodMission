@@ -93,9 +93,6 @@
                         </div>';
         }
 
-
-        $media = ($valoracion_cantidad > 0) ? round($valoracion_total / $valoracion_cantidad, 1) : 0;
-
         $estrellasHTML .= '<!-- Valoración con estrellas -->';
         $estrellasHTML .= '<div class="flex items-center mb-4">';
         $estrellasHTML .= '<div class="flex mr-2">';
