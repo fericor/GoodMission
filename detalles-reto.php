@@ -44,24 +44,24 @@
                 <p class="text-lg"><strong>Fecha:</strong> <?=date('d M Y', strtotime($reto['fecha_limite']))?></p>
                 <p class="text-lg"><strong>Hora:</strong> <?=date('H:i', strtotime($reto['fecha_limite']))?></p>
                 <p class="text-lg"><strong>Lugar:</strong> <?=htmlspecialchars($reto['direccion'])?>, <?=htmlspecialchars($reto['ubicacion'])?></p>
-                <p class="text-lg"><strong>Precio:</strong> <span class="text-green-600 font-semibold"><?=htmlspecialchars($reto['precio'])?> <?=htmlspecialchars($reto['tipo'])?></span></p>
+                <p class="text-lg"><strong>Precio:</strong> <span class="text-green-600 font-semibold"><?=htmlspecialchars($reto['recompensa'])?> <?=htmlspecialchars($reto['tipo'])?></span></p>
             </div>
-        <div>
-            <p class="text-lg"><strong>Organiza:</strong> <?=htmlspecialchars($reto['organizador'])?></p>
-            <p class="text-lg"><strong>Categoría:</strong> <?=htmlspecialchars($reto['categoria'])?></p>
+            <div>
+                <p class="text-lg"><strong>Organiza:</strong> <?=htmlspecialchars($reto['organizador'])?></p>
+                <p class="text-lg"><strong>Categoría:</strong> <?=htmlspecialchars($reto['categoria'])?></p>
 
-            <!-- Valoración -->
-            <div class="mt-4">
-            <strong>Valoración:</strong>
-            <div id="rating" class="flex space-x-1 mt-1">
-                <span class="star" data-value="1">★</span>
-                <span class="star" data-value="2">★</span>
-                <span class="star" data-value="3">★</span>
-                <span class="star" data-value="4">★</span>
-                <span class="star" data-value="5">★</span>
+                <!-- Valoración -->
+                <div class="mt-4">
+                    <strong>Valoración:</strong>
+                    <div id="rating" class="flex space-x-1 mt-1">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                </div>
             </div>
-            </div>
-        </div>
         </div>
 
         <!-- Descripción -->
