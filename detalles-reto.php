@@ -44,7 +44,7 @@
                 <p class="text-lg"><strong>Fecha:</strong> <?=date('d M Y', strtotime($reto['fecha_limite']))?></p>
                 <p class="text-lg"><strong>Hora:</strong> <?=date('H:i', strtotime($reto['fecha_limite']))?></p>
                 <p class="text-lg"><strong>Lugar:</strong> <?=htmlspecialchars($reto['direccion'])?>, <?=htmlspecialchars($reto['ubicacion'])?></p>
-                <p class="text-lg"><strong>Precio:</strong> <span class="text-green-600 font-semibold">Gratis</span></p>
+                <p class="text-lg"><strong>Precio:</strong> <span class="text-green-600 font-semibold"><?=htmlspecialchars($reto['precio'])?> <?=htmlspecialchars($reto['tipo'])?></span></p>
             </div>
         <div>
             <p class="text-lg"><strong>Organiza:</strong> <?=htmlspecialchars($reto['organizador'])?></p>
