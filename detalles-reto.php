@@ -19,6 +19,15 @@
         $valoracion_cantidad = $reto['valoracion_cantidad'];
         $media               = $valoracion_cantidad > 0 ? round($valoracion_total / $valoracion_cantidad, 1) : 0;
 
+        // Inscritos
+        $inscritosQuery = mysqli_query($conn, "SELECT COUNT(*) as total FROM inscripciones WHERE id_reto = $idReto");
+        $inscritos      = mysqli_fetch_assoc($inscritosQuery)['total'];
+
+        // Comprobar si el usuario está inscrito
+        $id_usuario = $_SESSION['user_id'] ?? 0;
+        $yaInscrito = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM inscripciones WHERE id_reto=$idReto AND id_usuario=$id_usuario")) > 0;
+
+
 
         $estrellasHTML .= '<div class="flex items-center mb-4">';
         $estrellasHTML .= '<div class="flex mr-2">';
@@ -51,11 +60,9 @@
             <h1 class="text-3xl font-bold"><?=htmlspecialchars($reto['titulo'])?></h1>
             <div class="flex space-x-4">
                 <button id="likeBtn" class="text-gray-500 hover:text-red-500 transition">
-                ❤️ <span id="likeCount">12</span>
+                ❤️ <span id="likeCount"><?=$valoracion_cantidad?></span>
                 </button>
-                <button id="participateBtn" class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition">
-                Participar
-                </button>
+                <button id="participateBtn" class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition"> Participar </button>
             </div>
         </div>
 
@@ -89,19 +96,18 @@
 
         <!-- Mapa (Ubicación) -->
         <div class="mt-8">
-        <h2 class="text-xl font-semibold mb-2">Ubicación</h2>
-        <div class="aspect-w-16 aspect-h-9">
-            <iframe 
-            class="w-full h-64 rounded-xl border"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.2992991773556!2d-3.682746384605812!3d40.41536397936562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422628d5403b4d%3A0xf37b956e10f816e!2sParque%20del%20Retiro!5e0!3m2!1ses!2ses!4v1689105404742"
-            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
+            <h2 class="text-xl font-semibold mb-2">Ubicación</h2>
+            <div class="aspect-w-16 aspect-h-9">
+                <iframe class="w-full h-64 rounded-xl border"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.2992991773556!2d-3.682746384605812!3d40.41536397936562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422628d5403b4d%3A0xf37b956e10f816e!2sParque%20del%20Retiro!5e0!3m2!1ses!2ses!4v1689105404742"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
         </div>
 
         <!-- Participantes -->
         <div class="mt-6 border-t pt-4 text-sm text-gray-500">
-        Participantes: <span id="participantCount">87</span>
+            Participantes: <span id="participantCount"><?=$inscritos?></span>
         </div>
     </div>
 
