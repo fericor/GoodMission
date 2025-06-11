@@ -3,7 +3,7 @@
 
 <?php 
     // if (!isset($_SESSION['user_id'])) header("Location: login.php");
-    $TITLE_PAG = "GoodMission:: Retos"; 
+    $TITLE_PAG = "GoodMission - Inicio"; 
 ?>
 
 <?php include_once 'includes/nav.php'; ?>
