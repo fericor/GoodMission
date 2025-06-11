@@ -6,7 +6,7 @@
     $TITLE_PAG = "GoodMission - Detalles del Reto"; 
 
     // Preparar y ejecutar consulta
-    $stmt = $conn->prepare("SELECT * FROM reto WHERE id = ?");
+    $stmt = $conn->prepare("SELECT * FROM retos WHERE id = ?");
     $stmt->bind_param("i", $ID_RETO);
     $stmt->execute();
     $result = $stmt->get_result();
