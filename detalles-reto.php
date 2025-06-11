@@ -66,10 +66,10 @@
 
         <!-- Descripción -->
         <div class="mt-6">
-        <h2 class="text-xl font-semibold mb-2">Descripción del evento</h2>
-        <p class="text-gray-700 leading-relaxed">
-            Únete a una noche llena de música, comida y diversión. Disfruta de artistas urbanos reconocidos y emergentes. Evento al aire libre con zona de food trucks, actividades y mucho más.
-        </p>
+            <h2 class="text-xl font-semibold mb-2">Descripción del evento</h2>
+            <p class="text-gray-700 leading-relaxed">
+                <?=htmlspecialchars($reto['descripcion'])?>
+            </p>
         </div>
 
         <!-- Mapa (Ubicación) -->
