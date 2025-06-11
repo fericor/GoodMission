@@ -2,8 +2,17 @@
 <?php include_once 'control/csrf.php'; ?>
 
 <?php 
-    // if (!isset($_SESSION['user_id'])) header("Location: login.php");
-    $TITLE_PAG = "GoodMission - Inicio"; 
+    $ID_RETO   = isset($_GET['id']) ? intval($_GET['id']) : 0;
+    $TITLE_PAG = "GoodMission - Detalles del Reto"; 
+
+    // Preparar y ejecutar consulta
+    $stmt = $conn->prepare("SELECT * FROM reto WHERE id = ?");
+    $stmt->bind_param("i", $ID_RETO);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($reto = $result->fetch_assoc()) {
+
 ?>
 
 <?php include_once 'includes/nav.php'; ?>
@@ -13,33 +22,33 @@
     
         <!-- Imagen del evento -->
         <div class="rounded-xl overflow-hidden">
-        <img src="https://source.unsplash.com/800x400/?concert,event" alt="Imagen del Evento" class="w-full object-cover">
+            <img src="uploads/<?=htmlspecialchars($reto['imagen'])?>" alt="<?=htmlspecialchars($reto['titulo'])?>" class="w-full object-cover">
         </div>
 
         <!-- Título y botones -->
         <div class="flex justify-between items-center mt-4">
-        <h1 class="text-3xl font-bold">Festival de Música Urbana</h1>
-        <div class="flex space-x-4">
-            <button id="likeBtn" class="text-gray-500 hover:text-red-500 transition">
-            ❤️ <span id="likeCount">12</span>
-            </button>
-            <button id="participateBtn" class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition">
-            Participar
-            </button>
-        </div>
+            <h1 class="text-3xl font-bold"><?=htmlspecialchars($reto['titulo'])?></h1>
+            <div class="flex space-x-4">
+                <button id="likeBtn" class="text-gray-500 hover:text-red-500 transition">
+                ❤️ <span id="likeCount">12</span>
+                </button>
+                <button id="participateBtn" class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition">
+                Participar
+                </button>
+            </div>
         </div>
 
         <!-- Información -->
         <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <p class="text-lg"><strong>Fecha:</strong> <?=date('d M Y', strtotime($reto['fecha_limite']))?></p>
+                <p class="text-lg"><strong>Hora:</strong> <?=date('H:i', strtotime($reto['fecha_limite']))?></p>
+                <p class="text-lg"><strong>Lugar:</strong> <?=htmlspecialchars($reto['direccion'])?>, <?=htmlspecialchars($reto['ubicacion'])?></p>
+                <p class="text-lg"><strong>Precio:</strong> <span class="text-green-600 font-semibold">Gratis</span></p>
+            </div>
         <div>
-            <p class="text-lg"><strong>Fecha:</strong> 22 de Junio de 2025</p>
-            <p class="text-lg"><strong>Hora:</strong> 19:00</p>
-            <p class="text-lg"><strong>Lugar:</strong> Parque del Retiro, Madrid</p>
-            <p class="text-lg"><strong>Precio:</strong> <span class="text-green-600 font-semibold">Gratis</span></p>
-        </div>
-        <div>
-            <p class="text-lg"><strong>Organiza:</strong> Cultura Madrid</p>
-            <p class="text-lg"><strong>Categoría:</strong> Música, Festival</p>
+            <p class="text-lg"><strong>Organiza:</strong> <?=htmlspecialchars($reto['organizador'])?></p>
+            <p class="text-lg"><strong>Categoría:</strong> <?=htmlspecialchars($reto['categoria'])?></p>
 
             <!-- Valoración -->
             <div class="mt-4">
@@ -80,6 +89,12 @@
         Participantes: <span id="participantCount">87</span>
         </div>
     </div>
+
+    <?php
+        } else {
+            echo "<p>Reto no encontrado.</p>";
+        }
+    ?>
 
 
     <!-- Script JS -->
